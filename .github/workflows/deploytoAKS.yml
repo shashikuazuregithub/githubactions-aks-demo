@@ -41,7 +41,7 @@ jobs:
       
     - name: tag docker image
       #run: docker tag githubactions-aks-demo:'${{github.sha}}' '${{secrets.DOCKER_LOGIN}}'/githubactions-aks-demo:'${{github.sha}}'
-      run: docker tag githubactions-aks-demo:latest
+      run: docker tag githubactions-aks-demo:'${{github.sha}}' '${{secrets.DOCKER_LOGIN}}'/githubactions-aks-demo:latest
       
     - name: push docker image
       run: docker push '${{secrets.DOCKER_LOGIN}}'/githubactions-aks-demo:'${{github.sha}}'
