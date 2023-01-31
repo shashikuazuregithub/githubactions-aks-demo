@@ -72,6 +72,11 @@ jobs:
         
       # Deploy to k8s cluster
     - name: Deploy to Kubernetes cluster
+      env:
+        CONTAINER_REGISTRY: docker.io
+        REPO: shashiku
+        IMAGE_NAME: githubactions-aks-demo
+        IMAGE_TAG: '${{github.sha}}'
       uses: Azure/k8s-deploy@v1.2
       with:        
         # Path to the manifest files which will be used for deployment.
@@ -80,7 +85,8 @@ jobs:
           k8s/service.yml
         # Fully qualified resource URL of the image(s) to be used for substitutions on the manifest files Example: contosodemo.azurecr.io/helloworld:test
         #images: ${{secrets.DOCKER_LOGIN}}/githubactions-aks-demo:${{github.sha}}
-        images: 'docker.io/shashiku/githubactions-aks-demo:${{github.sha}}'
+        #images: 'docker.io/shashiku/githubactions-aks-demo:${{github.sha}}'
+        images: ${{env.CONTAINER_REGISTRY}}/${{env.REPO}}/${{env.IMAGE_NAME}}:${{env.IMAGE_TAG}}
         # Name of a docker-registry secret that has already been set up within the cluster. Each of these secret names are added under imagePullSecrets field for the workloads found in the input manifest files
         imagepullsecrets: docker-image-pull-secret
         # deploy/promote/reject
