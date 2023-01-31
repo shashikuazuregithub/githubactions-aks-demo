@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: githubactions-aks-demo
-        image: shashiku/githubactionsaksdemo:latest
+        image: shashiku/githubactionsaksdemo:${{github.sha}}
         resources:
           limits:
             memory: "128Mi"
